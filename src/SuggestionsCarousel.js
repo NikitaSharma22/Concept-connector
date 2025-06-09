@@ -1,25 +1,35 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { LucideSparkles } from 'lucide-react';
 
-const SuggestionCarousel = ({ onSuggestionClick }) => {
-    // All suggestions now have exactly 3 concepts
-    const allSuggestions = [
-      { title: "The Science of Sleep", concepts: ["Circadian Rhythm", "REM Sleep", "Melatonin"] },
-      { title: "Basics of Economics", concepts: ["Supply and Demand", "Inflation", "Interest Rates"] },
-      { title: "The Roman Empire", concepts: ["Julius Caesar", "Augustus", "The Colosseum"] },
-      { title: "AI & Machine Learning", concepts: ["Neural Networks", "Large Language Models", "Supervised Learning"] },
-      { title: "Space Exploration", concepts: ["James Webb Telescope", "Black Holes", "Mars Rover"] },
-      { title: "Existentialism", concepts: ["Jean-Paul Sartre", "Absurdism", "Free Will"] },
-      { title: "Greek Philosophy", concepts: ["Socrates", "Plato", "Aristotle"] },
-      { title: "Quantum Physics", concepts: ["Quantum Entanglement", "Superposition", "Schrödinger's Cat"] },
-      { title: "Musical Theory", concepts: ["Chords", "Scales", "Harmony"] },
-      { title: "World War I", concepts: ["Archduke Ferdinand", "Trench Warfare", "Treaty of Versailles"] },
-      { title: "Climate Change", concepts: ["Greenhouse Effect", "Fossil Fuels", "Renewable Energy"] },
-    ];
+// --- SOLUTION ---
+// The `allSuggestions` array has been moved outside the component.
+// It is now a true constant and is not recreated on every render.
+const allSuggestions = [
+  { title: "The Science of Sleep", concepts: ["Circadian Rhythm", "REM Sleep", "Melatonin"] },
+  { title: "Basics of Economics", concepts: ["Supply and Demand", "Inflation", "Interest Rates"] },
+  { title: "The Roman Empire", concepts: ["Julius Caesar", "Augustus", "The Colosseum"] },
+  { title: "AI & Machine Learning", concepts: ["Neural Networks", "Large Language Models", "Supervised Learning"] },
+  { title: "Space Exploration", concepts: ["James Webb Telescope", "Black Holes", "Mars Rover"] },
+  { title: "Existentialism", concepts: ["Jean-Paul Sartre", "Absurdism", "Free Will"] },
+  { title: "Greek Philosophy", concepts: ["Socrates", "Plato", "Aristotle"] },
+  { title: "Quantum Physics", concepts: ["Quantum Entanglement", "Superposition", "Schrödinger's Cat"] },
+  { title: "Musical Theory", concepts: ["Chords", "Scales", "Harmony"] },
+  { title: "World War I", concepts: ["Archduke Ferdinand", "Trench Warfare", "Treaty of Versailles"] },
+  { title: "Climate Change", concepts: ["Greenhouse Effect", "Fossil Fuels", "Renewable Energy"] },
+];
 
+const SuggestionCarousel = ({ onSuggestionClick }) => {
     const [shuffledList, setShuffledList] = useState([]);
-    const shuffleSuggestions = useCallback(() => setShuffledList([...allSuggestions].sort(() => 0.5 - Math.random())), []);
-    useEffect(() => { shuffleSuggestions(); }, [shuffleSuggestions]);
+
+    // This useCallback now correctly has no dependencies because `allSuggestions`
+    // is a stable constant defined outside the component's scope.
+    const shuffleSuggestions = useCallback(() => {
+        setShuffledList([...allSuggestions].sort(() => 0.5 - Math.random()));
+    }, []);
+
+    useEffect(() => {
+        shuffleSuggestions();
+    }, [shuffleSuggestions]);
 
     return (
         <div className="text-center py-6">
