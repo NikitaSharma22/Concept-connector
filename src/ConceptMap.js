@@ -102,7 +102,7 @@ export const ConceptMap = ({ data }) => {
             const angle = (i / nodeIds.length) * 2 * Math.PI - Math.PI / 2;
             
             // **ADJUSTED**: Radius multiplier is increased to make the circle bigger.
-            const radius = Math.min(mapWidth, mapHeight) * 0.6;
+            const radius = Math.min(mapWidth, mapHeight) * 0.5;
 
             nodeMap.set(id, {
                 id: id, label: id, color: nodeColorPalette[i % nodeColorPalette.length],
