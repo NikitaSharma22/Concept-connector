@@ -38,7 +38,6 @@ const App = () => {
     };
 
     const isFormValid = concepts.filter(c => c.trim() !== '').length >= 2;
-// In src/App.js, replace the old fetchExplanation with this one:
 
     const fetchExplanation = useCallback(async () => {
         if (!isFormValid) return;
